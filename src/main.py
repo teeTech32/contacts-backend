@@ -27,7 +27,7 @@ S3_BUCKET_NAME2 = 'mybucketuse'
 
 app.add_middleware(
   CORSMiddleware,
-  allow_origins=["*"],
+  allow_origins=["https://contacts-frontend-livid.vercel.app/"],
   allow_credentials=True,
   allow_methods=['*'],
   allow_headers=['*'],
