@@ -2,7 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-DATABASE_URL = 'postgresql://fastapi:csHW3ntrDp6prLRkic3bOkjqGogtXTAn@dpg-csh2go8gph6c73bv0t30-a/contactapplication'
+DATABASE_URL = 'postgresql://contactsdb_ph8z_user:GtxFB4b2Hl6zNH4S6l2qbk2fVm2Yhzru@dpg-ct6ao8pu0jms73957deg-a/contactsdb_ph8z'
+
 
 
 engine = create_engine(DATABASE_URL)
