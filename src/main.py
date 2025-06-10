@@ -18,12 +18,11 @@ outh2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 s3 = boto3.client(
                 service_name ='s3',
-                region_name = 'us-east-1',
+                region_name = 'eu-north-1',
                 aws_access_key_id = keys.ACCESS_KEY_ID,
                 aws_secret_access_key = keys.ACCESS_SECRETE_KEY 
                 )
-S3_BUCKET_NAME = 'mybucketcontacts'
-S3_BUCKET_NAME2 = 'mybucketuse'
+S3_BUCKET_NAME = 'teetech-contact-bucket'
 
 app.add_middleware(
   CORSMiddleware,
@@ -134,7 +133,7 @@ async def edit_username(username:str, data:CreateUsers, db:db_dependency):
 async def upload_images(db:db_dependency, file:UploadFile = File(...)):
   if file:
     s3.upload_fileobj(file.file, S3_BUCKET_NAME, file.filename,) 
-    photo_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{file.filename}'
+    photo_url = f'https://{S3_BUCKET_NAME}.s3.eu-north-1.amazonaws.com/{file.filename}'
     filename = file.filename
     db_image = models.Image(image_url=photo_url, image_name=filename )
     db.add(db_image)
@@ -190,7 +189,7 @@ async def edit_contact(id:int, data:ContactBase, db:db_dependency):
 @app.patch('/UploadImage/{id}')
 async def upload_images(id:int, db:db_dependency, file:UploadFile = File(...)):
   s3.upload_fileobj(file.file, S3_BUCKET_NAME, file.filename,) 
-  photo_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{file.filename}'
+  photo_url = f'https://{S3_BUCKET_NAME}.s3.eu-north-1.amazonaws.com/{file.filename}'
   filename = file.filename
   result = db.query(models.Image).filter(models.Image.id==id).one()
   if result is not  None:
